@@ -43,6 +43,29 @@ $ sudo apt update
 $ sudo apt install build-essential gcc make perl dkms git gcc-riscv64-unknown-elf gdb-multiarch qemu-system-misc
 ```
 
+## 2.1 Add Operating environment - Fedora/RHEL
+
+All demo codes have been verified under the following environment. Please carefully check whether your Fedora version and kernel version are consistent with the following information.
+```
+$ cat /etc/redhat-release 
+Fedora release 40 (Forty)
+
+$ uname -r
+6.8.5-301.fc40.x86_64
+```
+To use it in Fedora, related packages must be installed:
+```
+$ sudo dnf group install "Development Tools"
+$ sudo dnf install autoconf automake python3 libmpc-devel mpfr-devel gmp-devel gawk bison flex texinfo patchutils gcc gcc-c++ zlib-devel expat-devel libslirp-devel
+$ sudo dnf install qemu-system-riscv
+```
+Since the riscv-gnu-toolchain and gdb-multiarch packages are not currently available in Fedora's official repo, this part needs to be compiled by yourself.
+```
+$ git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
+$ git clone https://github.com/bminor/binutils-gdb.git
+```
+
+
 # 3. Building and usage
 
 - `make`：Compile and build
