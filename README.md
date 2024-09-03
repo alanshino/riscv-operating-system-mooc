@@ -64,7 +64,12 @@ Since the riscv-gnu-toolchain and gdb-multiarch packages are not currently avail
 $ git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
 $ git clone https://github.com/bminor/binutils-gdb.git
 ```
-
+There is an automated installation script provided here. After installation, an init-on-fedora file containing environment variables will be generated in the directory.
+Source this file to set the required environment variables.
+```
+$ bash work-on-fedora.sh
+$ source init-on-fedora
+```
 
 # 3. Building and usage
 
