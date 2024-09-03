@@ -29,6 +29,10 @@ done
 
 # Prepare clone riscv-gnu-toolchain
 git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git
+if [ $? -ne 0 ]; then
+    echo "riscv-gnu-toolchain directory already exists"
+    exit 1
+fi
 cd riscv-gnu-toolchain
 mkdir run-toolchain
 toolchainpwd="$PWD/run-toolchain"
@@ -48,6 +52,10 @@ fi
 # Prepare clone gdb source
 cd $CURRENTPWD
 git clone https://github.com/bminor/binutils-gdb.git
+if [ $? -ne 0 ]; then
+    echo "binutils-gdb directory already exists"
+    exit 1
+fi
 cd binutils-gdb
 mkdir run-riscv-gdb
 gdbpwd="$PWD/run-riscv-gdb"
@@ -63,8 +71,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 make install
+cd $gdbpwd/bin
+ln -s riscv64-linux-gnu-gdb gdb-multiarch
 
 # Generate final configuration file
-#cd $CURRENTPWD
-#touch init-on-fedora
-#cat ""
+# source init-on-fedora to init envirement
+cd $CURRENTPWD
+touch init-on-fedora
+echo "PATH=$toolchainpwd/bin:$gdbpwd/bin:$PATH" >> init-on-fedora
+echo "export PATH" >> init-on-fedora
+
+
